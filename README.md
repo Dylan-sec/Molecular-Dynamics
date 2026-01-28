@@ -74,5 +74,11 @@ M=30, e=1, N=1000, L=50, B=3, and epsilon=0.1
 **Energie total en fonctio**
 <img width="3225" height="2150" alt="Capture d’écran 2026-01-28 211743_upscayl_5x_upscayl-standard-4x" src="https://github.com/user-attachments/assets/c7b170a8-8b82-4a38-8c95-757730b9100e" />
 
+---
+**Conclusion**
+
+We can see that the potential energy is much too low compared to the kinetic energy, so the total energy is approximately equal to the kinetic energy.
+We can see peaks in energy at certain moments, which may correspond to collisions between particles, but the kinetic energy, and therefore the total energy, remains constant. So total energy is conserved in a Lennard-Jones gas.
+
 
 
