@@ -63,15 +63,15 @@ Here is the modeling of some trajectories with:
 M=30, e=1, N=1000, L=50, B=3, and epsilon=0.1
 
 ---
-**Energie Potentiel en fonction du temps**
+**Energy Potential as a function of time**
 <img width="3550" height="2460" alt="Capture d’écran 2026-01-28 211518_upscayl_5x_upscayl-standard-4x" src="https://github.com/user-attachments/assets/94679332-5a64-464c-a57a-7955e5eac80f" />
 
 ---
-**Énergie cinétique en fonction du temps**
+**Kinetic energy as a function of time**
 <img width="3435" height="2180" alt="Capture d’écran 2026-01-28 211614_upscayl_5x_upscayl-standard-4x" src="https://github.com/user-attachments/assets/311978df-23bb-41d1-a1ed-bd7ed56e1576" />
 
 ---
-**Energie total en fonctio**
+**Total energy in operation**
 <img width="3225" height="2150" alt="Capture d’écran 2026-01-28 211743_upscayl_5x_upscayl-standard-4x" src="https://github.com/user-attachments/assets/c7b170a8-8b82-4a38-8c95-757730b9100e" />
 
 ---
