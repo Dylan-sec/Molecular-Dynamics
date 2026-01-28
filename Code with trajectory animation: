@@ -1,0 +1,96 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+
+# Paramètres
+N = 1000  # Nombre de pas de temps
+e = 1     # Taille de pas
+T = int(e * N)  # Nombre total de pas de temps
+B = 8     # Nombre de particules
+L = 50    # Dimension de la boîte
+M = 10    # Masse des particules
+epsilon = 10  # Paramètre du potentiel de Lennard-Jones
+sigma = 1
+
+x = np.zeros((T, B))  # Coordonnées x
+y = np.zeros((T, B))  # Coordonnées y
+v = np.zeros((B, 2))  # Vitesses initiales (vx, vy)
+r = np.zeros((T, B, 2))  # Positions (x, y) des particules
+F = np.zeros((B, 2))  # Forces exercées sur chaque particule
+
+
+E = np.zeros(T)  # Tableau de stockage de l’énergie cinétique 
+U = np.zeros(T)  #Tableau de stockage de l’énergie potentielle 
+
+# Conditions initiales
+for i in range(B):
+    v[i, 0] = np.random.uniform(0, 0.4)  # Vitesse initiale en x
+    v[i, 1] = np.random.uniform(0, 0.4)  # Vitesse initiale en y
+    x[0, i] = np.random.uniform(0, L)  # Position initiale x
+    y[0, i] = np.random.uniform(0, L)  # Position initiale y
+    x[1, i] = x[0, i] - e * v[i, 0]   # Position à t-1 en x
+    y[1, i] = y[0, i] - e * v[i, 1]   # Position à t-1 en y
+    r[0, i] = np.array([x[0, i], y[0, i]])  # Position initiale dans r
+    r[1, i] = np.array([x[1, i], y[1, i]])  # Position à t-1 dans r
+
+def animate(t):
+    F=np.zeros((B,2)) 
+
+    # Calcul des forces de Lennard-Jones et de l'énergie potentielle
+    for i in range(B):
+        for j in range(i + 1, B):  # Éviter i = j
+            o = r[t, i] - r[t, j]  # Vecteur distance entre les particules i et j
+            d = np.linalg.norm(o)  # Norme de la distance
+            if d > 0:  # Éviter la division par zéro
+                # Force de Lennard-Jones
+                force = ((48 * epsilon) / d**2) * ((d**-12) - 0.5 * (d**-6)) * o
+                F[i] += force  # Force Fij
+                F[j] -= force  # Force Fji
+                # Énergie potentielle
+                U[t] = U[t] + 4 * epsilon * ((sigma/d)**12 - (sigma/d)**6) #Calcul de l’énergie potentiel 
+
+    # Mise à jour des positions
+    for i in range(B):
+        x[t + 1, i] = 2 * x[t, i] - x[t - 1, i] + e**2 * (F[i, 0] / M)  # Mise à jour de la position en x
+        y[t + 1, i] = 2 * y[t, i] - y[t - 1, i] + e**2 * (F[i, 1] / M)  # Mise à jour de la position en y
+        x[t + 1, i] %= L  # Condition aux Bords périodiques en x
+        y[t + 1, i] %= L  # Condition aux Bords périodiques en y
+        r[t + 1, i] = np.array([x[t + 1, i], y[t + 1, i]])  # Stockage des nouvelles positions
+
+    # Calcul de l'énergie cinétique
+    for i in range(B):
+        velocity = (r[t + 1, i] - r[t - 1, i]) / (2 * e)  # Vitesse 
+        E[t] = E[t] +0.5 * M * np.linalg.norm(velocity)**2  # Énergie cinétique de la particule i
+
+  
+    scat.set_offsets(r[t])
+    return (scat,)
+
+
+fig, ax = plt.subplots()
+ax.set_xlim(0, L)
+ax.set_ylim(0, L)
+ax.set_xlabel("X")
+ax.set_ylabel("Y")
+ax.grid()
+
+
+scat = ax.scatter(x[0], y[0], marker="o")
+
+ani = FuncAnimation(fig, animate, frames=range(1, T - 1), interval=30, blit=True)
+
+plt.show()
+
+
+t= np.arange(T)
+energie_mecanique=E[t]+U[t]
+plt.figure()
+#plt.plot(t, E, label="Énergie Cinétique (E)")
+#plt.plot(t, U, label="Énergie Potentielle (U)")
+plt.plot(t, energie_mecanique, label="Énergie Totale (Em)")
+plt.xlabel("t")
+plt.ylabel("Énergie")
+plt.title("Énergies")
+plt.legend()
+plt.grid()
+plt.show()
