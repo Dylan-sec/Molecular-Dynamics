@@ -80,5 +80,10 @@ M=30, e=1, N=1000, L=50, B=3, and epsilon=0.1
 We can see that the potential energy is much too low compared to the kinetic energy, so the total energy is approximately equal to the kinetic energy.
 We can see peaks in energy at certain moments, which may correspond to collisions between particles, but the kinetic energy, and therefore the total energy, remains constant. So total energy is conserved in a Lennard-Jones gas.
 
+---
+**Bibliography**
+
+- Understanding molecular simulation: from algorithms to applications, Daan Frenkel, Berend Smith 
+- Modélisation, méthodes numériques pour la physique Ch. Oguey, LPTM, Institut ST CY Cergy Paris Université
 
 
